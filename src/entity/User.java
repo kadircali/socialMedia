@@ -11,4 +11,12 @@ public class User extends General implements userInterface.User {
 
     private String about ;
 
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
 }

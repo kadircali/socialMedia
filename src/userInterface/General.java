@@ -5,7 +5,7 @@ public class General {
 
     private String username;
     private String password;
-    private String email ;
+
 
 
     public General(String username, String password) {
@@ -30,11 +30,5 @@ public class General {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

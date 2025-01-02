@@ -12,6 +12,7 @@ public class UserController {
 
 
     UserService userService ;
+    User user ;
 
 
     public UserController(UserService userService) {
@@ -39,6 +40,15 @@ public class UserController {
 
         return loggedUser;
 
+    }
+
+
+    public void displayProfile(General user){
+
+        this.user =(User) user;
+        System.out.println("******************");
+        System.out.println("kullanıcı adı :"+user.getUsername());
+        System.out.println("hakkında :"+((User) user).getAbout());
     }
 
 
