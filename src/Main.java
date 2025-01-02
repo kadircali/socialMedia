@@ -116,18 +116,11 @@ STT: 18/01/2025 cumartesi derse kadar
                     System.out.print("şifreniz:");
                     password = scan.next();
 
-
-
-
                     try {
                         General loggedUser = userController.userLogin(userName, password);
 
                         if (loggedUser instanceof User) {
                             // user girişi başarılı : profil açılsın, profil düzenleme vs.
-
-
-
-
 
                             while (true){
                                 userMenu();
@@ -140,62 +133,25 @@ STT: 18/01/2025 cumartesi derse kadar
                                         continue;
 
                                     case 2:
-                                        //gönderileri gör
-                                        List<Post> posts = postController.getPostsFromServive();
-
-                                        int currentIndex = 0;
-
-                                       while (true){
-                                           System.out.println(posts.get(currentIndex));
-                                           System.out.println("Bir sonraki postu görmek için 'a' ya basın.");
-                                           System.out.println("Bir önceki postu görmek için 'b' ya basın.");
-                                           System.out.println("Postu beğenmek için k tuşuna basın");
-                                           System.out.println("Postu beğenmemek için m tuşuna basın");
-                                           System.out.println("Çıkmak için 'q' ya basın.");
-                                           String choice2 = scan.next();
-
-                                           // Seçime göre işlem
-                                           if (choice2.equals("a")) {
-                                               // Bir sonraki postu göster
-                                               if (currentIndex < posts.size() - 1) {
-                                                   currentIndex++;
-                                               } else {
-                                                   System.out.println("Zaten son postu görüntülüyorsunuz.");
-                                               }
-                                           } else if (choice2.equals("b")) {
-                                               // Bir önceki postu göster
-                                               if (currentIndex > 0) {
-                                                   currentIndex--;
-                                               } else {
-                                                   System.out.println("Zaten ilk postu görüntülüyorsunuz.");
-                                               }
-                                           } else if (choice2.equals("q")) {
-
-                                               break;
-                                           } else if (choice2.equals("k")) {
-                                                                //like
-                                               posts.get(currentIndex).likePost();
-
-                                           } else if (choice2.equals("m")) {
-                                               //unlike
-                                               posts.get(currentIndex).unlikePost();
-
-                                           } else {
-                                               System.out.println("Geçersiz seçenek. Lütfen 'a', 'b' veya 'q' tuşlarından birine basın.");
-                                           }
-                                       }
-
-
+                                        //gönderileri gör , like at
+                                        postController.nextPrevious();
                                         continue;
-                                    case 3:
+
+                                    case 3 :
+                                        //gönderi paylaş
+                                        System.out.print("Gnderi içeriğini giriniz:");
+
+                                        String content = scan.next();
+                                        scan.nextLine();
+
+                                        postController.sendPost(content,loggedUser);
+                                        continue;
+                                    case 4:
                                         //çıkış yap
                                         break;
-
                                 }
                                 break;
                             }
-
-
 
                         } else if (loggedUser instanceof Admin) {
                             // admin girişi başarılı :adminlerin de profili olsun, admin paneli olsun, admin ekleme vs.
@@ -218,21 +174,15 @@ STT: 18/01/2025 cumartesi derse kadar
                             }
                         }
 
-
                     } catch (UserNotFoundException e) {
                         System.out.println(e.getMessage());  // Kullanıcı bulunamadı mesajı
                     }
-
-
                     break;
 
-
-
             }
-
         }
-
     }
+
 
 
     public static void mainMenu(){
@@ -246,18 +196,19 @@ STT: 18/01/2025 cumartesi derse kadar
     public static void userMenu(){
 
         System.out.println("******************");
-        System.out.println("1-)profilimi görüntüle");
-        System.out.println("2-)gönderileri gör");
-        System.out.println("3-)çıkış yap");
+        System.out.println("1-)Profilimi görüntüle");
+        System.out.println("2-)Gönderileri gör");
+        System.out.println("3-Gönderi paylaş");
+        System.out.println("4-)Çıkış yap");
         System.out.print("ne yapmak istiyorsunuz?:");
     }
 
     public static void adminMenu(){
         System.out.println("******************");
-        System.out.println("1-)admin ekle");
-        System.out.print("2-)tüm kullanıcıları gör");
-        System.out.println("3-)gönderileri gör");
-        System.out.println("4-)çıkış yap");
+        System.out.println("1-)Admin ekle");
+        System.out.print("2-)Tüm kullanıcıları gör");
+        System.out.println("3-)Gönderileri gör");
+        System.out.println("4-)Çıkış yap");
         System.out.print("ne yapmak istiyorsunuz?:");
     }
 
