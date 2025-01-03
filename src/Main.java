@@ -169,7 +169,11 @@ STT: 18/01/2025 cumartesi derse kadar
                                         newPassword = scan.next();
                                         System.out.print("hakkınızda:");
                                         newAbout = scan.next();
-                                        userController.editProfile(loggedUser,newName,oldPassword,newPassword,newAbout);
+                                        boolean sonuc = userController.editProfile(loggedUser,newName,oldPassword,newPassword,newAbout);
+                                        System.out.println(sonuc);
+                                        for (User user : dataBase.getAllUsers()){
+                                            System.out.println(user.getUsername());
+                                        }
 
 
                                         break ;

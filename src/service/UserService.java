@@ -77,21 +77,31 @@ public class UserService {
 
     }
 
+/*
+
+kadircali   seda,rukiye,akin,kadircali
+ */
 
     public boolean editProfile(General loggedUser,String newUsername,String oldPass,String newPass,String newAbout) {
         //kullanıcı adı ve eski şifre kontrolü
         this.users = userRepo.getUsers();
-        for (User user : users){
 
-            if((user.getId().equals(loggedUser.getId())) && !(user.getUsername().equals(newUsername))){
+        //kullanıcı adı benzersizliği
 
-                user.setUsername(newUsername);
-                user.setPassword(newPass);
-                user.setAbout(newAbout);
-                return true;
+        for (User existingUser : users) {
+            if (!existingUser.getId().equals(loggedUser.getId()) && existingUser.getUsername().equals(newUsername)) {
+                return false; // Kullanıcı adı zaten alınmış
             }
-
         }
-        return  false ;
+
+        loggedUser = (User) loggedUser ;
+
+        loggedUser.setUsername(newUsername);
+        loggedUser.setPassword(newPass);
+        ((User) loggedUser).setAbout(newAbout);
+
+
+
+        return true;
     }
 }

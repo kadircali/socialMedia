@@ -13,6 +13,7 @@ public class General {
     public General(String username, String password) {
         this.username = username;
         this.password = password;
+
     }
 
 
@@ -40,4 +41,6 @@ public class General {
     public void setId(String id) {
         this.id = id;
     }
+
+
 }
