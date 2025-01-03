@@ -19,8 +19,8 @@ public class UserController {
         this.userService = userService;
     }
 
-    public boolean userRegister(String username, String password){
-        User user = new User(username,password);
+    public boolean userRegister(String username, String password,String about){
+        User user = new User(username,password,about);
         return userService.addUser(user);
     }
 
@@ -51,6 +51,9 @@ public class UserController {
         System.out.println("hakkında :"+((User) user).getAbout());
     }
 
+    public boolean editProfile(General loggedUser,String newUsername,String oldPass,String newPass,String newAbout){
 
+        return userService.editProfile(loggedUser,newUsername,oldPass,newPass,newAbout);
+    }
 
 }

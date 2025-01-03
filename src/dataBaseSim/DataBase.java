@@ -17,7 +17,8 @@ List<Post> posts = new ArrayList<>();
 
     //ön tanımlı admin/post,kullanıcı
     public DataBase() {
-        User user = new User("akincali","1234");
+        User user = new User("akincali","1234","ben akıncalı");
+        user.setId("1");
         admins.add(new Admin("admin","1234"));
         users.add(user);
         posts.add(new Post("merhaba dünya",user));
@@ -30,9 +31,13 @@ List<Post> posts = new ArrayList<>();
     }
 
 
+
+
+
     public List<Admin> getAllAdmins(){
 
         return this.admins;
+
     }
 
     public void addUserToList(User user){

@@ -5,6 +5,8 @@ public class General {
 
     private String username;
     private String password;
+    private String id ;
+
 
 
 
@@ -31,4 +33,11 @@ public class General {
     }
 
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

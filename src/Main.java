@@ -68,6 +68,7 @@ STT: 18/01/2025 cumartesi derse kadar
 
         String userName ;
         String password;
+        String about ;
 
 
 
@@ -91,9 +92,11 @@ STT: 18/01/2025 cumartesi derse kadar
                     userName = scan.next();
                     System.out.print("lütfen şifre belirleyiniz");
                     password =scan.next();
+                    System.out.print("hakkınızda birkaç şey yazın:");
+                    about = scan.next();
 
 
-                    if(userController.userRegister(userName,password) ){
+                    if(userController.userRegister(userName,password,about) ){
 
                         System.out.println("******************");
                         System.out.println("kullanici eklendi");
@@ -135,6 +138,9 @@ STT: 18/01/2025 cumartesi derse kadar
                                     case 2:
                                         //gönderileri gör , like at
                                         postController.nextPrevious();
+
+
+
                                         continue;
 
                                     case 3 :
@@ -146,7 +152,29 @@ STT: 18/01/2025 cumartesi derse kadar
 
                                         postController.sendPost(content,loggedUser);
                                         continue;
-                                    case 4:
+                                    case 4 :
+                                        userController.displayProfile(loggedUser);
+                                        //profili düzenle
+                                        String newName ;
+                                        String newPassword ;
+                                        String oldPassword ;
+                                        String newAbout ;
+
+                                        System.out.print("yeni kullanıcı adınızı giriniz:");
+                                        newName = scan.next();
+                                        System.out.print("eski şifrenizi giriniz :");
+                                        oldPassword = scan.next();
+
+                                        System.out.print("yeni şifrenizi giriniz:");
+                                        newPassword = scan.next();
+                                        System.out.print("hakkınızda:");
+                                        newAbout = scan.next();
+                                        userController.editProfile(loggedUser,newName,oldPassword,newPassword,newAbout);
+
+
+                                        break ;
+
+                                    case 5:
                                         //çıkış yap
                                         break;
                                 }
@@ -199,7 +227,8 @@ STT: 18/01/2025 cumartesi derse kadar
         System.out.println("1-)Profilimi görüntüle");
         System.out.println("2-)Gönderileri gör");
         System.out.println("3-Gönderi paylaş");
-        System.out.println("4-)Çıkış yap");
+        System.out.println("4-)Prolimi düzenle");
+        System.out.println("5-)Çıkış yap");
         System.out.print("ne yapmak istiyorsunuz?:");
     }
 
@@ -212,4 +241,7 @@ STT: 18/01/2025 cumartesi derse kadar
         System.out.print("ne yapmak istiyorsunuz?:");
     }
 
+    public static void editProfile(){
+
+    }
 }
