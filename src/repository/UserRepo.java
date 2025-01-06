@@ -29,10 +29,10 @@ public class UserRepo {
         return dataBase.getAllUsers();
     }
 
+
     public List<Admin> getAdmins(){
         return dataBase.getAllAdmins();
     }
-
 
 
 

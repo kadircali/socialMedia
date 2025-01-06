@@ -23,6 +23,7 @@ public class PostController {
          postService.sendPostToRepo(post);
     }
 
+    //kullanılmadı
     public List<Post> getPostsFromServive(){
         return postService.getPostsFromRepo();
     }

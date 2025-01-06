@@ -1,3 +1,4 @@
+import controller.AdminController;
 import controller.PostController;
 import controller.UserController;
 import dataBaseSim.DataBase;
@@ -5,8 +6,10 @@ import entity.Admin;
 import entity.Post;
 import entity.User;
 import exceptions.UserNotFoundException;
+import repository.AdminRepo;
 import repository.PostRepo;
 import repository.UserRepo;
+import service.AdminService;
 import service.PostService;
 import service.UserService;
 import userInterface.General;
@@ -29,15 +32,7 @@ public class Main {
         SOSYAL MEDYA
 
 
-KULLANICILAR
 
-• Post paylaşacak.
-• Başka insanların postlarını görecek
-o Post bilgilerinde : kim paylaşmış,post açıklaması, like ve dislike
-sayıları gözükecek.
-• Kendi profillerini düzenleyecek.
-• Başka insanların postlarına like ve dislike atabilecek.
-• Post güncelle
 Admin
 • Üye ol
 • Giriş yap
@@ -63,6 +58,11 @@ STT: 18/01/2025 cumartesi derse kadar
         PostRepo postRepo = new PostRepo(dataBase);
         PostService postService = new PostService(postRepo);
         PostController postController = new PostController(postService);
+
+
+        AdminRepo adminRepo = new AdminRepo(dataBase);
+        AdminService adminService = new AdminService(adminRepo);
+        AdminController adminController = new AdminController(adminService);
 
 
 
@@ -187,22 +187,74 @@ STT: 18/01/2025 cumartesi derse kadar
 
                         } else if (loggedUser instanceof Admin) {
                             // admin girişi başarılı :adminlerin de profili olsun, admin paneli olsun, admin ekleme vs.
+                        while (true){
+
                             adminMenu();
                             choice = scan.nextInt();
                             switch (choice){
                                 case 1 :
+                                    //admin ekle
+                                    System.out.print("admin kullanıcı adı giriniz:");
+                                    userName = scan.next();
+                                    System.out.print("admin şifresi giriniz:");
+                                    password = scan.next();
 
-                                    break ;
+
+
+                                    if(adminController.adminRegister(userName,password) ){
+
+                                        System.out.println("******************");
+                                        System.out.println("admin eklendi");
+
+
+                                    }else{
+                                        System.out.println("******************");
+                                        System.out.println("kullanici adi mevcut");
+                                        break ;
+                                    }
+                                    continue ;
 
                                 case 2:
+                                    //tüm kullanıcıları gör, buradan kullanıcı silinsin
+                                List<General> users = adminController.combinedUsers();
 
+                                for (General general : users){
+                                    System.out.println("*************");
+                                    System.out.println("kullanıcı adı:"+general.getUsername()+"\n" +
+                                            "yetki:"+general.getAuthority() +"\n" +
+                                            "ID:"+general.getId()
+                                            );
 
-                                    break ;
+                                }
+
+                                    String id;
+                                    System.out.println("silmek istediğiniz kullanıcının ID'sini giriniz");
+                                    System.out.println("kullanıcı silmek istemiyorsanız 0 giriniz");
+                                    System.out.print("ID:");
+                                    id = scan.next();
+
+                                    if(adminController.deleteUser(id)){
+                                        System.out.println("kullanıcı silindi");
+                                    }else{
+                                        System.out.println("kullanıcı silinemedi");
+                                    }
+
+                                    continue ;
                                 case 3:
-                                    break ;
-                                case 4 :
+
+                                    //tüm gönderileri gör,gönderi sil
+                                    adminController.nextPrevious();
+
                                     break ;
 
+                                case 4:
+                                    //çıkış yap
+
+                                    break ;
+
+
+                             }
+                             break;
                             }
                         }
 
@@ -239,8 +291,8 @@ STT: 18/01/2025 cumartesi derse kadar
     public static void adminMenu(){
         System.out.println("******************");
         System.out.println("1-)Admin ekle");
-        System.out.print("2-)Tüm kullanıcıları gör");
-        System.out.println("3-)Gönderileri gör");
+        System.out.println("2-)Tüm kullanıcıları gör");
+        System.out.println("3-)Tüm Gönderileri gör");
         System.out.println("4-)Çıkış yap");
         System.out.print("ne yapmak istiyorsunuz?:");
     }

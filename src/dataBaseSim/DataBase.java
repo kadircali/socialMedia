@@ -19,8 +19,15 @@ List<Post> posts = new ArrayList<>();
     public DataBase() {
         User user = new User("akincali","1234","ben akıncalı");
         user.setId("1");
-        admins.add(new Admin("admin","1234"));
+        user.setAuthority("user");
         users.add(user);
+
+        Admin admin = new Admin("admin","1234");
+        admin.setAuthority("admin");
+        admin.setId("2");
+        admins.add(admin);
+
+
         posts.add(new Post("merhaba dünya",user));
         posts.add(new Post("selamlar",user));
     }
@@ -29,8 +36,6 @@ List<Post> posts = new ArrayList<>();
 
         return this.users;
     }
-
-
 
 
 
@@ -52,5 +57,35 @@ List<Post> posts = new ArrayList<>();
         return this.posts;
     }
 
+
+    public void addAdmin(Admin admin){
+        this.admins.add(admin);
+    }
+
+
+    public  boolean deleteUser(String id){
+
+        for(User user:users){
+            if(user.getId().equals(id)){
+                users.remove(user);
+                return  true ;
+            }
+            else {
+                for (Admin admin:admins){
+                    if(admin.getId().equals(id)){
+                        admins.remove(admin);
+                        return true ;
+                    }
+                }
+            }
+        }
+
+        return false ;
+    }
+
+
+    public void deletePost(Post post){
+        posts.remove(post);
+    }
 
 }

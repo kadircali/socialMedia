@@ -36,6 +36,7 @@ public class UserService {
 
         }
         user.setId(uniqueID);
+        user.setAuthority("user");
         userRepo.saveUser(user);
         return true ;
     }
