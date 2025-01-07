@@ -45,7 +45,7 @@ STT: 18/01/2025 cumartesi derse kadar
 
         //ön tanımlı admin girişi --> kullanıcı adı : admin şifre :1234
 
-        int choice ;
+        int choice =0 ;
         Scanner scan = new Scanner(System.in);
 
 
@@ -79,11 +79,18 @@ STT: 18/01/2025 cumartesi derse kadar
         while (true){
 
             mainMenu();
-            choice = scan.nextInt();
+
+            try {
+                choice = scan.nextInt();
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                scan.next();
+                continue;
+
+            }
 
 
-
-            switch (choice){
+            switch (choice) {
 
                 case 1 :
                     //üye ol
@@ -263,7 +270,7 @@ STT: 18/01/2025 cumartesi derse kadar
                     }
                     break;
 
-            }
+            }//switch bitiş
         }
     }
 
